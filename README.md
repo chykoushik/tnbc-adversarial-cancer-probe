@@ -1,4 +1,4 @@
-# tnbc-adversarial-cancer-probe
+# onco-probe
 
 Adversarial attacks (FGSM + PGD) used as biological discovery tools for Triple Negative Breast Cancer. Not a robustness paper. A biological discovery paper.
 
@@ -191,32 +191,37 @@ requests
 
 ## Repository Structure
 
+This repository contains code and results only. Raw data and processed TCGA-derived files are not included due to TCGA data use agreements.
+
 ```
 tnbc-adversarial-cancer-probe/
-├── models/
-│   ├── image/                     trained image classifier weights + training_results.json
-│   └── gene/                      RF, XGBoost, scaler, gene names
-├── sensitivity/
-│   ├── image/                     v3 and E2 FGSM + PGD sensitivity maps (npy)
-│   └── gene/                      RF and XGBoost gene sensitivity maps (npy)
+├── 01_data_loading.ipynb
+├── train_models.py
+├── 02_models.ipynb
+├── compute_sensitivity_v3.py
+├── compute_sensitivity_e2.py
+├── 03_adversarial_sensitivity.ipynb
 ├── results/
-│   ├── processed/                 clinical CSVs, gene matrices, train/val/test splits
 │   ├── figures/                   all plots and visualizations
-│   └── results/                   all_results_summary.json, pathway_enrichment.csv, survival_data.csv
-└── data/
-    └── metabric/                  clinical_wide_all.csv, metabric_validation_results.csv
+│   ├── all_results_summary.json   all numerical results
+│   ├── pathway_enrichment.csv     Enrichr pathway results
+│   └── survival_data.csv          Kaplan-Meier survival data
+└── README.md
 ```
 
-Raw data not included — too large for repository:
+Model weights and sensitivity maps are hosted on Harvard Dataverse — link will be added upon publication.
 
-```
-local only/
-├── tcga_images_a2/                268,938 histopathology tiles
-├── tcga_images_e2/                214,210 histopathology tiles
-├── breakhis/                      7,909 microscopy images
-├── TCGA.BRCA.sampleMap_HiSeqV2.gz raw gene expression
-├── GSE76124 + GSE58812 + GSE103091 GEO series matrix files
-└── TCGA-BRCA-A2/E2-CLINI.xlsx    clinical Excel files
-```
+---
 
-Raw image data available via TCGA Data Portal. Gene data available via GEO and cBioPortal.
+## Data Access
+
+| Dataset | Access | Link |
+|---|---|---|
+| TCGA-BRCA-A2 images | Controlled — requires dbGaP approval | GDC Data Portal |
+| TCGA-BRCA-E2 images | Controlled — requires dbGaP approval | GDC Data Portal |
+| TCGA HiSeqV2 gene expression | Controlled — requires dbGaP approval | GDC Data Portal |
+| BreakHis | Public | Spanhol et al. 2016 |
+| GSE76124 | Public | GEO accession GSE76124 |
+| GSE58812 | Public | GEO accession GSE58812 |
+| GSE103091 | Public | GEO accession GSE103091 |
+| METABRIC | Public | cBioPortal study brca_metabric |
