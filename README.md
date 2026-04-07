@@ -1,4 +1,4 @@
-# onco-probe
+# tnbc-adversarial-cancer-probe
 
 Adversarial attacks (FGSM + PGD) used as biological discovery tools for Triple Negative Breast Cancer. Not a robustness paper. A biological discovery paper.
 
