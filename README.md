@@ -217,9 +217,9 @@ Model weights and sensitivity maps are hosted on Harvard Dataverse — link will
 
 | Dataset | Access | Link |
 |---|---|---|
-| TCGA-BRCA-A2 images | Controlled — requires dbGaP approval | GDC Data Portal |
-| TCGA-BRCA-E2 images | Controlled — requires dbGaP approval | GDC Data Portal |
-| TCGA HiSeqV2 gene expression | Controlled — requires dbGaP approval | GDC Data Portal |
+| TCGA-BRCA-A2 images | Public| GDC Data Portal |
+| TCGA-BRCA-E2 images | Public | GDC Data Portal |
+| TCGA HiSeqV2 gene expression | Public | GDC Data Portal |
 | BreakHis | Public | Spanhol et al. 2016 |
 | GSE76124 | Public | GEO accession GSE76124 |
 | GSE58812 | Public | GEO accession GSE58812 |
