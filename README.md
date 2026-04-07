@@ -1,4 +1,5 @@
 # tnbc-adversarial-cancer-probe
+
 Adversarial attacks (FGSM + PGD) used as biological discovery tools for Triple Negative Breast Cancer. Not a robustness paper. A biological discovery paper.
 
 The idea is simple. Instead of using adversarial attacks to fool models, we use them to ask every patient the same question — what does the model find most suspicious about your tissue. The gradient maps become biological measurements.
@@ -188,8 +189,34 @@ requests
 
 ---
 
-## Results
+## Repository Structure
 
-All numerical results saved to `results/all_results_summary.json`
+```
+tnbc-adversarial-cancer-probe/
+├── models/
+│   ├── image/                     trained image classifier weights + training_results.json
+│   └── gene/                      RF, XGBoost, scaler, gene names
+├── sensitivity/
+│   ├── image/                     v3 and E2 FGSM + PGD sensitivity maps (npy)
+│   └── gene/                      RF and XGBoost gene sensitivity maps (npy)
+├── results/
+│   ├── processed/                 clinical CSVs, gene matrices, train/val/test splits
+│   ├── figures/                   all plots and visualizations
+│   └── results/                   all_results_summary.json, pathway_enrichment.csv, survival_data.csv
+└── data/
+    └── metabric/                  clinical_wide_all.csv, metabric_validation_results.csv
+```
 
-All figures saved to `results/figures/`
+Raw data not included — too large for repository:
+
+```
+local only/
+├── tcga_images_a2/                268,938 histopathology tiles
+├── tcga_images_e2/                214,210 histopathology tiles
+├── breakhis/                      7,909 microscopy images
+├── TCGA.BRCA.sampleMap_HiSeqV2.gz raw gene expression
+├── GSE76124 + GSE58812 + GSE103091 GEO series matrix files
+└── TCGA-BRCA-A2/E2-CLINI.xlsx    clinical Excel files
+```
+
+Raw image data available via TCGA Data Portal. Gene data available via GEO and cBioPortal.
