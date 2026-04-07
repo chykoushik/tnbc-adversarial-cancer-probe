@@ -215,13 +215,13 @@ Model weights and sensitivity maps are hosted on Harvard Dataverse — link will
 
 ## Data Access
 
-| Dataset | Access | Link |
-|---|---|---|
-| TCGA-BRCA-A2 images | Public| GDC Data Portal |
-| TCGA-BRCA-E2 images | Public | GDC Data Portal |
-| TCGA HiSeqV2 gene expression | Public | GDC Data Portal |
-| BreakHis | Public | Spanhol et al. 2016 |
-| GSE76124 | Public | GEO accession GSE76124 |
-| GSE58812 | Public | GEO accession GSE58812 |
-| GSE103091 | Public | GEO accession GSE103091 |
-| METABRIC | Public | cBioPortal study brca_metabric |
+| Dataset | Source |
+|---|---|
+| TCGA image tiles + TCGA-BRCA-A2-CLINI.xlsx + TCGA-BRCA-A2_SLIDE.xlsx | zenodo.org/records/5337009 |
+| TCGA HiSeqV2 gene expression | tcga-xena-hub.s3 HiSeqV2.gz |
+| TCGA HiSeqV2 probeMap | tcga-xena-hub.s3 probeMap |
+| GSE76124 series matrix | ncbi.nlm.nih.gov/geo accession GSE76124 |
+| GSE58812 series matrix | ncbi.nlm.nih.gov/geo accession GSE58812 |
+| GSE103091 series matrix | ncbi.nlm.nih.gov/geo accession GSE103091 |
+| BreakHis | kaggle.com/datasets/ambarish/breakhis |
+| METABRIC | cBioPortal study brca_metabric |
