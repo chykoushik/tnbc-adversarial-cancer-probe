@@ -1,0 +1,164 @@
+PS E:\apply\journal publication\onco-probe> python compute_sensitivity_v3.py
+device cuda
+gpu NVIDIA GeForce RTX 4060 Laptop GPU
+a2 tnbc patients 12
+a2 non-tnbc patients all 90
+e2 total patients 93
+e2 tnbc patients 9
+resnet50-ts loaded
+efficientnet-ts loaded
+finding a2 tnbc images
+a2 tnbc patients with images 11
+finding a2 non-tnbc images all 90 — 100 tiles each
+a2 non-tnbc patients with images 86
+computing resnet50-ts fgsm and pgd for a2 tnbc
+resnet tnbc done TCGA-A2-A04U-01 tiles 100
+resnet tnbc done TCGA-A2-A0CM-01 tiles 100
+resnet tnbc done TCGA-A2-A0D0-01 tiles 100
+resnet tnbc done TCGA-A2-A0SX-01 tiles 100
+resnet tnbc done TCGA-A2-A0T0-01 tiles 100
+resnet tnbc done TCGA-A2-A0T2-01 tiles 100
+resnet tnbc done TCGA-A2-A0YE-01 tiles 100
+resnet tnbc done TCGA-A2-A1G6-01 tiles 100
+resnet tnbc done TCGA-A2-A3XT-01 tiles 100
+resnet tnbc done TCGA-A2-A3XX-01 tiles 100
+resnet tnbc done TCGA-A2-A3XY-01 tiles 100
+computing resnet50-ts fgsm and pgd for a2 non-tnbc all 90
+resnet non-tnbc done TCGA-A2-A04N-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04P-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04Q-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04R-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04T-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04V-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04W-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04X-01 tiles 100
+resnet non-tnbc done TCGA-A2-A04Y-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CK-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CL-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CO-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CP-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CQ-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CR-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CS-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CT-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CU-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CV-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CX-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0CY-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0D3-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0D4-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EM-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EN-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EO-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EP-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EQ-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0ER-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0ES-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0ET-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EU-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EV-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EX-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0EY-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0ST-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0SU-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0SV-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0SW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0SY-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T1-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T3-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T4-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T5-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T6-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0T7-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YC-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YD-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YF-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YG-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YH-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YI-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YJ-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YK-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YL-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YM-01 tiles 100
+resnet non-tnbc done TCGA-A2-A0YT-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1FV-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1FW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1FX-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1G0-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1G1-01 tiles 100
+resnet non-tnbc done TCGA-A2-A1G4-01 tiles 100
+resnet non-tnbc done TCGA-A2-A259-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25A-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25B-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25C-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25D-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25E-01 tiles 100
+resnet non-tnbc done TCGA-A2-A25F-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3KC-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3KD-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3XS-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3XU-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3XV-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3XW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A3Y0-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4RW-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4RX-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4RY-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4S0-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4S1-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4S2-01 tiles 100
+resnet non-tnbc done TCGA-A2-A4S3-01 tiles 100
+computing efficientnet-ts fgsm and pgd for a2 tnbc
+efficientnet tnbc done TCGA-A2-A04U-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0CM-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0D0-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0SX-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0T0-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0T2-01 tiles 100
+efficientnet tnbc done TCGA-A2-A0YE-01 tiles 100
+efficientnet tnbc done TCGA-A2-A1G6-01 tiles 100
+efficientnet tnbc done TCGA-A2-A3XT-01 tiles 100
+efficientnet tnbc done TCGA-A2-A3XX-01 tiles 100
+efficientnet tnbc done TCGA-A2-A3XY-01 tiles 100
+sensitivity maps saved
+image sensitivity summary v3 saved
+
+e2 external validation
+e2 images found 214210
+finding e2 patient images
+e2 patients with images 87
+computing resnet50-ts slide predictions for e2
+computing efficientnet-ts slide predictions for e2
+
+e2 external validation results
+e2 patients evaluated 87
+e2 tnbc patients 9
+e2 non-tnbc patients 78
+resnet50-ts e2 slide auc 0.5399
+efficientnet-ts e2 slide auc 0.5328
+
+resnet50-ts e2 classification report
+              precision    recall  f1-score   support
+
+    non-tnbc       0.90      0.82      0.86        78
+        tnbc       0.12      0.22      0.16         9
+
+    accuracy                           0.76        87
+   macro avg       0.51      0.52      0.51        87
+weighted avg       0.82      0.76      0.79        87
+
+
+all done
+upload sensitivity_v3 folder to drive at ONCO-PROBE/sensitivity_maps_v2/image_maps/
+files saved
+  e2_validation_results_v3.csv
+  fgsm_eff_tnbc_v3.npy
+  fgsm_resnet_non_tnbc_v3.npy
+  fgsm_resnet_tnbc_v3.npy
+  image_sensitivity_summary_v3.csv
+  pgd_eff_tnbc_v3.npy
+  pgd_resnet_non_tnbc_v3.npy
+  pgd_resnet_tnbc_v3.npy
+PS E:\apply\journal publication\onco-probe> 

@@ -1,0 +1,57 @@
+PS E:\apply\journal publication\onco-probe> python compute_sensitivity_e2.py
+device: cuda
+gpu: NVIDIA GeForce RTX 4060 Laptop GPU
+e2 tnbc patients:     9
+e2 non-tnbc patients: 84
+e2 non-tnbc sampled:  9 
+resnet50-ts loaded
+efficientnet-ts loaded
+
+finding e2 tnbc images...
+e2 tnbc patients with images: 9
+finding e2 non-tnbc images...
+e2 non-tnbc patients with images: 9
+
+computing resnet50-ts fgsm and pgd for e2 tnbc...
+  resnet tnbc e2 done TCGA-E2-A14N-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A14R-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A14X-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A150-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A158-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A1L7-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A1LH-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A1LL-01 tiles 100
+  resnet tnbc e2 done TCGA-E2-A1LS-01 tiles 100
+
+computing resnet50-ts fgsm and pgd for e2 non-tnbc...
+  resnet non-tnbc e2 done TCGA-E2-A105-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A109-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A14O-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A14Q-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A14Y-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A154-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A1II-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A1LE-01 tiles 100
+  resnet non-tnbc e2 done TCGA-E2-A1LK-01 tiles 100
+
+computing efficientnet-ts fgsm and pgd for e2 tnbc...
+  efficientnet tnbc e2 done TCGA-E2-A14N-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A14R-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A14X-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A150-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A158-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A1L7-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A1LH-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A1LL-01 tiles 100
+  efficientnet tnbc e2 done TCGA-E2-A1LS-01 tiles 100
+
+all e2 sensitivity maps saved
+upload to Drive at ONCO-PROBE/sensitivity_maps_v2/image_maps/
+  e2_validation_results_v3.csv
+  fgsm_eff_tnbc_e2.npy
+  fgsm_resnet_non_tnbc_e2.npy
+  fgsm_resnet_tnbc_e2.npy
+  pgd_eff_tnbc_e2.npy
+  pgd_resnet_non_tnbc_e2.npy
+  pgd_resnet_tnbc_e2.npy
+PS E:\apply\journal publication\onco-probe> 
