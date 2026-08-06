@@ -17,6 +17,11 @@ The pipeline trains five histopathology image classifiers and two gene expressio
 - 11 known TNBC genes recovered in XGBoost top 20 without supervision
 - Estrogen response pathway enrichment: adjusted p = 2.57×10⁻⁵
 - Survival PFI log-rank p = 0.0072, Cox HR = 0.54
+- - External CPTAC BRCA validation included 26 TNBC patients and 2,600 extracted tissue tiles
+- Macenko normalization increased EfficientNet mean TNBC probability from 0.070 to 0.203
+- Penalized multivariable Cox analysis adjusted for age, tumour stage, and TNBC status
+- Adjusted overall survival HR = 0.737, 95% CI 0.579 to 0.937, p = 0.0129
+- Adjusted progression free interval HR = 0.599, 95% CI 0.474 to 0.759, p < 0.001
 
 ---
 
@@ -29,6 +34,19 @@ The pipeline trains five histopathology image classifiers and two gene expressio
 train_models.py               — trains all 5 image classifiers locally on GPU (~13 hours)
 compute_sensitivity_v3.py     — computes FGSM+PGD maps for A2 cohort (~40 minutes)
 compute_sensitivity_e2.py     — computes FGSM+PGD maps for E2 external cohort (~20 minutes)
+reviewer_revision/
+├── 01_cptac_inventory.py
+├── 02_cptac_wsidicom_test.py
+├── 03_cptac_extract_tissue_tiles.py
+├── 04_cptac_adversarial_validation.py
+├── 05_cptac_summarize_results.py
+├── 06_verify_class_mapping.py
+├── 07_macenko_normalize_cptac_tiles.py
+├── 08_cptac_adversarial_validation_macenko.py
+├── 09_cptac_summarize_macenko.py
+├── 10_compare_native_macenko.py
+└── 11_multivariable_cox.py
+The `reviewer_revision/` folder contains the additional analyses added during manuscript revision. These scripts cover CPTAC BRCA data inspection, DICOM whole slide image reading, tissue tile extraction, native and Macenko normalized external validation, statistical summaries, and penalized multivariable Cox regression.
 ```
 
 ---
@@ -124,6 +142,7 @@ Raw data is not included. Download from the original sources:
 | GSE103091 | ncbi.nlm.nih.gov/geo accession GSE103091 |
 | BreakHis | kaggle.com/datasets/ambarish/breakhis |
 | METABRIC | cBioPortal study brca_metabric |
+| CPTAC BRCA DICOM whole slide images | NCI Imaging Data Commons at portal.imaging.datacommons.cancer.gov/explore/ |
 
 ---
 
@@ -143,9 +162,30 @@ matplotlib
 lifelines
 umap-learn
 inmoose
+pydicom
+wsidicom
+Pillow
+openpyxl
+tqdm
 ```
 
 ---
+
+## Additional Revision Analyses
+
+The manuscript revision added an independent CPTAC BRCA histopathology validation and an adjusted survival analysis.
+
+The CPTAC workflow includes:
+
+- DICOM whole slide image inventory
+- WSI reading with `wsidicom`
+- Tissue mask generation
+- Extraction of 100 tiles per patient
+- Validation with ResNet50-TS and EfficientNet-B0-TS
+- Native versus Macenko normalized image comparison
+- Patient and tile level statistical summaries
+
+The survival workflow includes penalized multivariable Cox regression for overall survival and progression free interval. The models include standardized FGSM sensitivity, standardized age at diagnosis, tumour stage, and TNBC status.
 
 ## Citation
 
