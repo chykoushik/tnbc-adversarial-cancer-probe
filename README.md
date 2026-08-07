@@ -6,49 +6,115 @@
 
 ## Overview
 
-This repository contains the full analysis pipeline for using adversarial attacks (FGSM and PGD) as biological discovery tools for Triple Negative Breast Cancer (TNBC). Rather than using adversarial attacks for robustness evaluation, this project directs them at the TNBC class for every patient and treats the resulting gradient magnitude maps as per-patient biological measurements.
+This repository contains the analysis pipeline for using adversarial attacks (FGSM and PGD) as biological probes for Triple Negative Breast Cancer (TNBC). Rather than using adversarial attacks only for robustness evaluation, the framework directs them toward the TNBC class for every patient and treats the resulting gradient-magnitude maps as patient-level measurements of TNBC-directed sensitivity.
 
-The pipeline trains five histopathology image classifiers and two gene expression classifiers, computes adversarial sensitivity maps for all patients, and performs multimodal fusion, pathway enrichment, survival analysis, and unsupervised clustering.
+The pipeline trains histopathology image classifiers and gene-expression classifiers, computes adversarial sensitivity maps, performs multimodal fusion, evaluates established explainability methods, conducts statistical and power analyses, evaluates probability calibration, performs survival analysis and unsupervised clustering, and provides external validation using independent cohorts.
 
-**Key results:**
-- Cross-model adversarial consistency: Spearman r = 0.9636, p = 1.85×10⁻⁶
-- TNBC vs non-TNBC separation: Mann-Whitney p = 1.45×10⁻⁶
-- Best fusion model (EfficientNet-TS + RF): LOO-CV AUC = 0.9693
-- 11 known TNBC genes recovered in XGBoost top 20 without supervision
-- Estrogen response pathway enrichment: adjusted p = 2.57×10⁻⁵
-- Survival PFI log-rank p = 0.0072, Cox HR = 0.54
-- - External CPTAC BRCA validation included 26 TNBC patients and 2,600 extracted tissue tiles
+## Key Results
+
+- Cross-model adversarial consistency: Spearman r = 0.9636, p = 1.85 × 10^-6
+- TNBC vs non-TNBC FGSM sensitivity: Mann-Whitney p = 1.45 × 10^-6
+- TNBC vs non-TNBC effect size: |Cohen's d| = 2.56; rank-biserial effect size = 0.896
+- Minimum detectable effect at 80% power for the available A2 class sizes: Cohen's d = 0.91
+- Primary multimodal adversarial fusion model (EfficientNet-derived features + Random Forest): LOO-CV AUC = 0.9693, 95% CI 0.9313-0.9947
+- Alternative EfficientNet fusion baselines: Logistic Regression AUC = 0.9937, MLP AUC = 0.9873, gated multimodal neural fusion AUC = 0.9757
+- Primary EfficientNet + Random Forest fusion calibration: Brier score = 0.0478, 10-bin ECE = 0.0573
+- EfficientNet + Logistic Regression achieved the lowest Brier score: 0.0269
+- EfficientNet + MLP achieved the lowest 10-bin ECE: 0.0303
+- FGSM spatial agreement was strongest with SmoothGrad (mean Spearman r = 0.637) and Integrated Gradients (r = 0.543)
+- 11 known TNBC-associated genes were recovered among the XGBoost top 20 features
+- Estrogen response pathway enrichment: adjusted p = 2.57 × 10^-5
+- External CPTAC BRCA validation included 26 confirmed TNBC patients
 - Macenko normalization increased EfficientNet mean TNBC probability from 0.070 to 0.203
-- Penalized multivariable Cox analysis adjusted for age, tumour stage, and TNBC status
-- Adjusted overall survival HR = 0.737, 95% CI 0.579 to 0.937, p = 0.0129
-- Adjusted progression free interval HR = 0.599, 95% CI 0.474 to 0.759, p < 0.001
+- Progression-free interval log-rank p = 0.0072
+- Adjusted overall-survival HR = 0.737, 95% CI 0.579-0.937, p = 0.0129
+- Adjusted progression-free-interval HR = 0.599, 95% CI 0.474-0.759, p < 0.001
 
 ---
 
 ## Repository Structure
 
-```
-01_data_loading.ipynb         — data preparation, TNBC labels, ComBat batch correction, patient splits
-02_models.ipynb               — gene classifier training, METABRIC external validation
-03_adversarial_sensitivity.ipynb  — all analysis: sensitivity, fusion, survival, UMAP, pathways
-train_models.py               — trains all 5 image classifiers locally on GPU (~13 hours)
-compute_sensitivity_v3.py     — computes FGSM+PGD maps for A2 cohort (~40 minutes)
-compute_sensitivity_e2.py     — computes FGSM+PGD maps for E2 external cohort (~20 minutes)
+```text
+01_data_loading.ipynb
+    Data preparation, TNBC label definition, ComBat batch correction,
+    gene-expression processing, and patient-level data splits.
+
+02_models.ipynb
+    Gene classifier training and METABRIC external validation.
+
+03_adversarial_sensitivity.ipynb
+    Main adversarial sensitivity analyses, multimodal fusion,
+    pathway enrichment, survival analysis, and UMAP clustering.
+
+train_models.py
+    Trains the five histopathology image classifiers.
+
+compute_sensitivity_v3.py
+    Computes FGSM and PGD sensitivity maps for the TCGA-A2 cohort.
+
+compute_sensitivity_e2.py
+    Computes FGSM and PGD sensitivity maps for the independent
+    TCGA-E2 cohort.
+
 reviewer_revision/
 ├── 01_cptac_inventory.py
+│   CPTAC BRCA DICOM/whole-slide-image inventory and dataset inspection.
+│
 ├── 02_cptac_wsidicom_test.py
+│   Tests reading CPTAC DICOM whole-slide images with wsidicom.
+│
 ├── 03_cptac_extract_tissue_tiles.py
+│   Generates tissue masks and extracts tissue tiles from CPTAC slides.
+│
 ├── 04_cptac_adversarial_validation.py
+│   Runs ResNet50-TS and EfficientNet-B0-TS inference and adversarial
+│   sensitivity analysis on native CPTAC images.
+│
 ├── 05_cptac_summarize_results.py
+│   Summarizes native CPTAC prediction and sensitivity results.
+│
 ├── 06_verify_class_mapping.py
+│   Verifies TNBC/non-TNBC class-index mapping used by the trained models.
+│
 ├── 07_macenko_normalize_cptac_tiles.py
+│   Applies Macenko stain normalization to CPTAC tissue tiles.
+│
 ├── 08_cptac_adversarial_validation_macenko.py
+│   Repeats CPTAC model inference and adversarial analysis using
+│   Macenko-normalized tiles.
+│
 ├── 09_cptac_summarize_macenko.py
+│   Summarizes prediction and sensitivity results after stain normalization.
+│
 ├── 10_compare_native_macenko.py
-└── 11_multivariable_cox.py
-The `reviewer_revision/` folder contains the additional analyses added during manuscript revision. These scripts cover CPTAC BRCA data inspection, DICOM whole slide image reading, tissue tile extraction, native and Macenko normalized external validation, statistical summaries, and penalized multivariable Cox regression.
-```
-
+│   Statistically compares native and Macenko-normalized CPTAC results.
+│
+├── 11_multivariable_cox.py
+│   Performs penalized multivariable Cox regression adjusted for age,
+│   tumour stage, and TNBC status.
+│
+├── 12_fusion_bootstrap_ci.py
+│   Computes patient-level bootstrap confidence intervals for multimodal
+│   fusion LOO-CV AUC estimates and saves out-of-fold predictions.
+│
+├── 13_remaining_analyses.py
+│   Performs additional reviewer-requested analyses associated with the
+│   multimodal/adversarial framework.
+│
+├── 14_remaining_analyses_part2.py
+│   Performs explainability comparisons, alternative fusion baselines,
+│   sample-size/power analysis, multiple-testing audit, and
+│   reproducibility audit.
+│
+├── 15_multimodal_gated_fusion.py
+│   Implements a compact gated multimodal neural fusion architecture and
+│   compares it with Random Forest, XGBoost, Logistic Regression, and MLP
+│   fusion models under patient-level LOO-CV.
+│
+└── 16_calibration_analysis.py
+    Evaluates calibration of multimodal fusion models using out-of-fold
+    probabilities, including Brier score, 10-bin expected calibration
+    error (ECE), calibration intercept/slope, and calibration curves.
 ---
 
 ## Processed Outputs
@@ -70,60 +136,84 @@ The download includes:
 
 After downloading from Harvard Dataverse:
 
-```python
-import numpy as np
+```import numpy as np
 import joblib
 
-# ── image sensitivity maps ────────────────────────────────────────────────
-# each .npy file is a dict: {patient_id: 224x224 numpy array}
+# Image sensitivity maps
+# Each .npy file contains a dictionary:
+# {patient_id: 224x224 numpy array}
 
-# A2 cohort — ResNet50-TS (used for fusion model and all main analysis)
-fgsm_resnet_tnbc     = np.load('fgsm_resnet_tnbc_v3.npy',     allow_pickle=True).item()
-pgd_resnet_tnbc      = np.load('pgd_resnet_tnbc_v3.npy',      allow_pickle=True).item()
-fgsm_resnet_non_tnbc = np.load('fgsm_resnet_non_tnbc_v3.npy', allow_pickle=True).item()
-pgd_resnet_non_tnbc  = np.load('pgd_resnet_non_tnbc_v3.npy',  allow_pickle=True).item()
+# TCGA-A2 — ResNet50-TS
+fgsm_resnet_tnbc = np.load(
+    'fgsm_resnet_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# A2 cohort — EfficientNet-TS (TNBC only, used for cross-model consistency)
-fgsm_eff_tnbc = np.load('fgsm_eff_tnbc_v3.npy', allow_pickle=True).item()
-pgd_eff_tnbc  = np.load('pgd_eff_tnbc_v3.npy',  allow_pickle=True).item()
+pgd_resnet_tnbc = np.load(
+    'pgd_resnet_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# E2 external cohort
-fgsm_resnet_tnbc_e2     = np.load('fgsm_resnet_tnbc_e2.npy',     allow_pickle=True).item()
-pgd_resnet_tnbc_e2      = np.load('pgd_resnet_tnbc_e2.npy',      allow_pickle=True).item()
-fgsm_resnet_non_tnbc_e2 = np.load('fgsm_resnet_non_tnbc_e2.npy', allow_pickle=True).item()
-pgd_resnet_non_tnbc_e2  = np.load('pgd_resnet_non_tnbc_e2.npy',  allow_pickle=True).item()
-fgsm_eff_tnbc_e2        = np.load('fgsm_eff_tnbc_e2.npy',        allow_pickle=True).item()
-pgd_eff_tnbc_e2         = np.load('pgd_eff_tnbc_e2.npy',         allow_pickle=True).item()
+fgsm_resnet_non_tnbc = np.load(
+    'fgsm_resnet_non_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# access one patient map
-patient_id  = list(fgsm_resnet_tnbc.keys())[0]
-map_224x224 = fgsm_resnet_tnbc[patient_id]  # shape (224, 224)
+pgd_resnet_non_tnbc = np.load(
+    'pgd_resnet_non_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# ── gene sensitivity maps ─────────────────────────────────────────────────
-rf_gene_sensitivity  = np.load('rf_gene_sensitivity.npy',  allow_pickle=True)
-xgb_gene_sensitivity = np.load('xgb_gene_sensitivity.npy', allow_pickle=True)
-gene_names           = np.load('top_gene_names.npy',        allow_pickle=True)
+# TCGA-A2 — EfficientNet-TS
+fgsm_eff_tnbc = np.load(
+    'fgsm_eff_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# ── image classifiers ─────────────────────────────────────────────────────
-import torch
-from torchvision import models
-import timm
+pgd_eff_tnbc = np.load(
+    'pgd_eff_tnbc_v3.npy', allow_pickle=True
+).item()
 
-# best model: EfficientNet-TS (AUC 0.9259, used in best fusion combination)
-efficientnet_ts = timm.create_model('efficientnet_b0', pretrained=False, num_classes=2)
-efficientnet_ts.load_state_dict(torch.load('efficientnet_ts_best.pth', map_location='cpu'))
-efficientnet_ts.eval()
+# TCGA-E2 external cohort
+fgsm_resnet_tnbc_e2 = np.load(
+    'fgsm_resnet_tnbc_e2.npy', allow_pickle=True
+).item()
 
-# ResNet50-TS (AUC 0.9259, used for all sensitivity map computation)
-resnet50_ts = models.resnet50(pretrained=False)
-resnet50_ts.fc = torch.nn.Linear(resnet50_ts.fc.in_features, 2)
-resnet50_ts.load_state_dict(torch.load('resnet50_ts_best.pth', map_location='cpu'))
-resnet50_ts.eval()
+pgd_resnet_tnbc_e2 = np.load(
+    'pgd_resnet_tnbc_e2.npy', allow_pickle=True
+).item()
 
-# ── gene classifiers ──────────────────────────────────────────────────────
-# best fusion combination: EfficientNet-TS + Random Forest (LOO-CV AUC 0.9693)
-rf     = joblib.load('random_forest_best.pkl')
-xgb    = joblib.load('xgboost_best.pkl')
+fgsm_resnet_non_tnbc_e2 = np.load(
+    'fgsm_resnet_non_tnbc_e2.npy', allow_pickle=True
+).item()
+
+pgd_resnet_non_tnbc_e2 = np.load(
+    'pgd_resnet_non_tnbc_e2.npy', allow_pickle=True
+).item()
+
+fgsm_eff_tnbc_e2 = np.load(
+    'fgsm_eff_tnbc_e2.npy', allow_pickle=True
+).item()
+
+pgd_eff_tnbc_e2 = np.load(
+    'pgd_eff_tnbc_e2.npy', allow_pickle=True
+).item()
+
+# Access one patient map
+patient_id = list(fgsm_resnet_tnbc.keys())[0]
+map_224x224 = fgsm_resnet_tnbc[patient_id]
+
+# Gene sensitivity
+rf_gene_sensitivity = np.load(
+    'rf_gene_sensitivity.npy', allow_pickle=True
+)
+
+xgb_gene_sensitivity = np.load(
+    'xgb_gene_sensitivity.npy', allow_pickle=True
+)
+
+gene_names = np.load(
+    'top_gene_names.npy', allow_pickle=True
+)
+
+# Gene classifiers
+rf = joblib.load('random_forest_best.pkl')
+xgb = joblib.load('xgboost_best.pkl')
 scaler = joblib.load('gene_scaler.pkl')
 ```
 
@@ -149,15 +239,15 @@ Raw data is not included. Download from the original sources:
 ## Requirements
 
 ```
-python 3.12
-pytorch
+Python 3.12
+PyTorch
 torchvision
 timm
 scikit-learn
-xgboost
+XGBoost
 pandas
-numpy
-scipy
+NumPy
+SciPy
 matplotlib
 lifelines
 umap-learn
