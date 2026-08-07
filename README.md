@@ -115,7 +115,7 @@ reviewer_revision/
     Evaluates calibration of multimodal fusion models using out-of-fold
     probabilities, including Brier score, 10-bin expected calibration
     error (ECE), calibration intercept/slope, and calibration curves.
-
+```
 ---
 
 ## Processed Outputs
