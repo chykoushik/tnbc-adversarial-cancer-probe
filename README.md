@@ -240,24 +240,13 @@ Raw data is not included. Download from the original sources:
 ## Requirements
 
 ```
-Python 3.12
-PyTorch
-torchvision
-timm
-scikit-learn
-XGBoost
-pandas
-NumPy
-SciPy
-matplotlib
-lifelines
-umap-learn
-inmoose
-pydicom
-wsidicom
-Pillow
-openpyxl
-tqdm
+- Python 3.12
+- Package dependencies are listed in `requirements.txt`.
+
+Install the required packages with:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
